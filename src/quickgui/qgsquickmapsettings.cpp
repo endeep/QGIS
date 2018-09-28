@@ -119,7 +119,8 @@ QPointF QgsQuickMapSettings::coordinateToScreen( const QgsPoint &point ) const
 QgsPoint QgsQuickMapSettings::screenToCoordinate( const QPointF &point ) const
 {
   // use floating point precision with mapToCoordinatesF
-  // instead of integer precision of toMapCoordinates( point.toPoint() )
+  // this is to aoviding rounding errors with an odd screen width or height
+  // and the point being set to the exact center of it
   const QgsPointXY pp = mMapSettings.mapToPixel().toMapCoordinatesF( point.x(), point.y() );
   return QgsPoint( pp );
 }
